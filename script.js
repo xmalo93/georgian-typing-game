@@ -203,21 +203,22 @@
   }
 
   // ---------- Jump logic ----------
-  function jumpUpOneStep() {
-    stepIndex += 1;
+   
+   function jumpUpOneStep() {
+  stepIndex += 1;
 
-    // ✅ ბურთი დგას შუალედზე: -(i*step) - step/2
-    ball.targetY = -stepIndex * stepHeight - stepHeight / 2;
+  const p = platforms[stepIndex] || platforms[platforms.length - 1];
 
-    // X: გადავიდეს ორი ახლო პლატფორმის შუაში
-    const pA = platforms[stepIndex] || platforms[platforms.length - 1];
-    const pB = platforms[stepIndex - 1] || platforms[0];
-    ball.targetX = (pA.x + pB.x) / 2;
+  // ბურთი "ზედ" პლატფორმაზე: პლატფორმის y - (მისი ნახევარი + ბურთის რადიუსი)
+  ball.targetY = p.y - (platformH / 2 + ball.radius);
 
-    // ხტომა
-    ball.vy = -620;
-    ball.squash = 1;
-  }
+  // X ზუსტად პლატფორმის ცენტრში
+  ball.targetX = p.x;
+
+  // ნახტომის იმპულსი
+  ball.vy = -650;
+  ball.squash = 1;
+}
 
   // ---------- Input handling ----------
   function normalizeGeorgian(s) {
@@ -389,40 +390,36 @@
   }
 
   // ✅ ფეხბურთის ბურთი
-  function drawBall(screenX, screenY) {
-    const squash = clamp(ball.squash, 0, 1);
-    const sx = 1 + squash * 0.18;
-    const sy = 1 - squash * 0.12;
+   function drawBall(screenX, screenY) {
+  const squash = clamp(ball.squash, 0, 1);
+  const sx = 1 + squash * 0.15;
+  const sy = 1 - squash * 0.10;
 
-    ctx.save();
-    ctx.translate(screenX, screenY);
-    ctx.scale(sx, sy);
+  ctx.save();
+  ctx.translate(screenX, screenY);
+  ctx.scale(sx, sy);
 
-    // ბურთის ძირითადი ფორმა
-    const base = ctx.createRadialGradient(-6, -8, 6, 0, 0, ball.radius + 10);
-    base.addColorStop(0, "#ffffff");
-    base.addColorStop(1, "#dfe6f2");
-    ctx.fillStyle = base;
-    ctx.beginPath();
-    ctx.arc(0, 0, ball.radius, 0, Math.PI * 2);
-    ctx.fill();
+  // ჩრდილი ბურთის ქვეშ (მცირე)
+  ctx.globalAlpha = 0.18;
+  ctx.beginPath();
+  ctx.ellipse(0, ball.radius + 10, ball.radius * 0.9, ball.radius * 0.28, 0, 0, Math.PI * 2);
+  ctx.fillStyle = "#000";
+  ctx.fill();
+  ctx.globalAlpha = 1;
 
-    // კონტური
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "rgba(0,0,0,0.25)";
-    ctx.stroke();
+  // ლოგოს მსგავსი ბურთი: ⚽ emoji
+  ctx.font = `${ball.radius * 2.4}px "Noto Sans Georgian", system-ui, Apple Color Emoji, Segoe UI Emoji`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
 
-    // შავი პანელები
-    ctx.fillStyle = "rgba(0,0,0,0.65)";
-    for (let i = 0; i < 6; i++) {
-      const ang = (Math.PI * 2 * i) / 6;
-      const px = Math.cos(ang) * (ball.radius * 0.55);
-      const py = Math.sin(ang) * (ball.radius * 0.55);
+  // მცირე glow რომ გამოიკვეთოს
+  ctx.shadowColor = "rgba(0,0,0,0.35)";
+  ctx.shadowBlur = 10;
+  ctx.fillText("⚽", 0, 0);
 
-      ctx.beginPath();
-      ctx.arc(px, py, ball.radius * 0.22, 0, Math.PI * 2);
-      ctx.fill();
-    }
+  ctx.restore();
+}
+
 
     // ცენტრი
     ctx.beginPath();
@@ -591,3 +588,4 @@
 
   boot();
 })();
+
