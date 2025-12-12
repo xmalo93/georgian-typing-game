@@ -61,7 +61,7 @@
   let ball = {
     x: 0,
     y: 0,
-    radius: 16,
+    radius: 20,
     vy: 0,
     targetY: 0,
     squash: 0
@@ -551,4 +551,5 @@
 
   boot();
 })();
+
 
