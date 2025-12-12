@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ქართული ტაიპინგ თამაში — ბურთი ხტება</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">⚽</div>
+        <div>
+          <h1>ქართული ტაიპინგ თამაში</h1>
+          <p>აკრიფე სიტყვა და დააჭირე Enter — ბურთი ახტება ზემოთ!</p>
+        </div>
+      </div>
+
+      <div class="hud">
+        <div class="hud-card">
+          <div class="hud-label">Score</div>
+          <div class="hud-value" id="score">0</div>
+        </div>
+        <div class="hud-card">
+          <div class="hud-label">Stage</div>
+          <div class="hud-value" id="stage">1 / ეზო</div>
+        </div>
+        <div class="hud-card">
+          <div class="hud-label">Correct</div>
+          <div class="hud-value" id="correctCount">0</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="game">
+        <div class="canvas-wrap">
+          <canvas id="gameCanvas" aria-label="Game canvas"></canvas>
+          <div class="hint" id="hint">შეიყვანე სიტყვა ქვემოთ 👇</div>
+        </div>
+
+        <div class="panel">
+          <div class="word-box">
+            <div class="word-label">დასაკრეფი სიტყვა</div>
+            <div class="word" id="currentWord">მზე</div>
+            <div class="sub" id="timerText">შემდეგი სიტყვა: 3.0წმ</div>
+          </div>
+
+          <div class="controls">
+            <label class="field">
+              <span>აკრიფე აქ</span>
+              <input id="wordInput" type="text" inputmode="text" autocomplete="off" spellcheck="false"
+                     placeholder="მაგ: თამაში" />
+            </label>
+
+            <div class="row">
+              <label class="field">
+                <span>სიჩქარე (სიტყვა/წამებში)</span>
+                <input id="speedSlider" type="range" min="1" max="6" step="0.5" value="3" />
+                <div class="mini" id="speedValue">3.0 წამი</div>
+              </label>
+
+              <button id="restartBtn" class="btn">Restart Game</button>
+            </div>
+
+            <div class="status" id="statusMsg" aria-live="polite"></div>
+          </div>
+
+          <footer class="footer">
+            <span>ქულა: სწორად +50, შეცდომაზე −10</span>
+            <span>ყოველ 500 სწორად სიტყვაზე — Stage იცვლება</span>
+          </footer>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
