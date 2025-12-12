@@ -445,7 +445,7 @@
 
     // camera follow (keep ball around 55% height)
     const rectH = canvas.getBoundingClientRect().height;
-    const desiredCam = ball.y - rectH * 0.55;
+    const desiredCam = ball.y - rectH * 0.70;
     cameraY += (desiredCam - cameraY) * (1 - Math.pow(0.85, dt * 60));
   }
 
@@ -467,7 +467,7 @@
     }
 
     // ball
-    const ballScreenY = (ball.y - cameraY) + h * 0.85;
+    const ballScreenY = (ball.y - cameraY);
     drawBall(ball.x, ballScreenY);
   }
 
@@ -551,3 +551,4 @@
 
   boot();
 })();
+
