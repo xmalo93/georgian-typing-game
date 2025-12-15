@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ქართული ტაიპინგ თამაში</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">⚽</div>
+        <div>
+          <h1>ქართული ტაიპინგ თამაში</h1>
+          <p>აკრიფე სიტყვა და დააჭირე Enter — ბურთი ახტება ზემოთ!</p>
+        </div>
+      </div>
+
+      <div class="hud">
+        <div class="hud-card">
+          <div class="hud-label">Score</div>
+          <div class="hud-value" id="score">0</div>
+        </div>
+        <div class="hud-card">
+          <div class="hud-label">Stage</div>
+          <div class="hud-value" id="stage">1 / ეზო (0/500)</div>
+        </div>
+        <div class="hud-card">
+          <div class="hud-label">Correct</div>
+          <div class="hud-value" id="correctCount">0</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="game">
+        <div class="canvas-wrap">
+          <canvas id="gameCanvas"></canvas>
+          <div class="hint">შეიყვანე სიტყვა ქვემოთ 👇</div>
+        </div>
+
+        <div class="panel">
+          <div class="word-box">
+            <div class="word-label">დასაკრეფი სიტყვა</div>
+            <div class="word" id="currentWord">მზე</div>
+            <div class="sub" id="timerText">შემდეგი სიტყვა: 8.0წმ</div>
+          </div>
+
+          <div class="controls">
+            <label class="field">
+              <span>აკრიფე აქ</span>
+              <input id="wordInput" type="text" autocomplete="off" spellcheck="false" placeholder="მაგ: თამაში" />
+            </label>
+
+            <div class="row">
+              <label class="field" style="flex:1">
+                <span>სიჩქარე (სიტყვა/წამებში)</span>
+                <input id="speedSlider" type="range" min="6" max="15" step="1" value="8" />
+                <div class="mini" id="speedValue">8 წამი</div>
+              </label>
+
+              <button id="restartBtn" class="btn">Restart Game</button>
+            </div>
+
+            <div class="status" id="statusMsg"></div>
+          </div>
+
+          <footer class="footer">
+            <span>ქულა: სწორად +50 (დროის მიხედვით იკლებს), შეცდომაზე −10</span>
+            <span>ყოველ 500 სწორ სიტყვაზე — Stage იცვლება</span>
+          </footer>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ✅ On-screen keyboard dock (bottom, like OSK) -->
+  <div id="keyboardDock" class="kbd-dock" aria-label="On-screen keyboard">
+    <div class="kbd-dock-inner">
+      <div class="kbd-dock-title">ქართული კლავიატურა (მომდევნო ასო გამოიკვეთება)</div>
+      <div id="keyboardKeys" class="kbd"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
